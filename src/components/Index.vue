@@ -1,6 +1,15 @@
 <template>
     <div>
-        <h1>{{ msg }}</h1>
+        <div class="header">
+            <h1>{{ msg }}</h1>
+
+            <div class="searchInDevs">
+                <label for="searchDev">Search your Dev</label>
+                <input type="searchDev" name="search" id="searchDev">
+                <button type="submit">Search</button>
+    <!--        v:model-->
+            </div>
+        </div>
 
         <div class="devList">
 
@@ -19,7 +28,8 @@
                     <strong>Phone: </strong>{{ currency.phone }}
                 </div>
 
-                <input class="button" type="button" @click="displayCard" :value="'See ' + currency.name.last">
+                <input class="devButton" type="button"  :value="'See ' + currency.name.first + ' ' + currency.name.last">
+<!--                @click="displayCard"-->
             </div>
 
 
@@ -58,11 +68,29 @@ export default {
 </script>
 
 <style>
+/*<!--*, ::before, ::after {-->*/
+/*<!--    box-sizing: border-box;-->*/
+/*<!--    margin: 0;-->*/
+/*<!--    padding: 0;-->*/
+/*<!--}-->*/
+
 body {
-    margin: 0 200px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-h1, h2 {
+.header {
+    margin: 0;
+    height: 200px;
+    padding: 60px;
+    background-color: darkblue;
+}
+
+h1 {
+    color: aliceblue;
+    margin-bottom: 60px;
+}
+
+h2 {
     color: darkblue;
 }
 
@@ -70,7 +98,17 @@ h1, h2 {
     margin: 20px;
 }
 
+.devButton {
+    margin-top:20px;
+    padding: 10px;
+    background-color: darkblue;
+    border: none;
+    border-radius: 6px;
+    color: aliceblue;
+}
+
 .devList {
+    margin: 0 200px;
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
@@ -83,6 +121,46 @@ h1, h2 {
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.40);
     height: 300px; /* A changer ! */
     padding: 20px;
+}
+
+.searchInDevs {
+    max-width: 700px;
+    width: 70%;
+    margin: 30px auto;
+    position: relative;
+    display: flex;
+}
+
+#searchDev {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+}
+
+.searchInDevs label {
+    position: absolute;
+    color: darkblue;
+    top: 50%;
+    transform: translateY(-50%);
+    padding-left: 8px;
+    transition: all 0.3s ease-in;
+}
+
+.searchInDevs button {
+    margin-left: 5px;
+    padding: 15px;
+    background-color: aliceblue;
+    color: darkblue;
+    border: none;
+    border-radius: 3px;
+}
+
+.searchInDevs:focus-within label {
+    top: -15px;
+    padding-left: 5px;
+    color: aliceblue;
 }
 
 </style>
