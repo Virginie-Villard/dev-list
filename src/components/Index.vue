@@ -1,13 +1,18 @@
 <template>
     <div>
         <div class="header">
+            <img src="../assets/jsLogo.png" id="logoJS"/>
             <h1>{{ msg }}</h1>
 
             <div class="searchInDevs">
                 <label for="searchDev">Search your Dev</label>
-                <input type="searchDev" name="search" id="searchDev">
+                <input type="search"
+                       name="search"
+                       id="searchDev"
+                       ref="filterSearch"
+                       v-model:>
                 <button type="submit">Search</button>
-    <!--        v:model-->
+
             </div>
         </div>
 
@@ -28,7 +33,9 @@
                     <strong>Phone: </strong>{{ currency.phone }}
                 </div>
 
-                <input class="devButton" type="button"  :value="'See ' + currency.name.first + ' ' + currency.name.last">
+                <input class="devButton"
+                       type="button"
+                       :value="'See ' + currency.name.first + ' ' + currency.name.last">
 <!--                @click="displayCard"-->
             </div>
 
@@ -43,6 +50,7 @@
 
 <script>
 import axios from "axios";
+import {ref} from "vue";
 
 export default {
     name: 'Index',
@@ -63,6 +71,19 @@ export default {
         axios
             .get('https://randomuser.me/api/?results=12')
             .then(response => (this.response = response.data.results))
+    },
+
+    methods: {
+        displayCard() {
+
+        },
+
+        filterList() {
+            let input = ref('filterSearch');
+            return axios.filter((dev) => {
+                dev.toLowerCase().includes(input.value.toLowerCase())
+            })
+        }
     }
 }
 </script>
@@ -80,9 +101,13 @@ body {
 
 .header {
     margin: 0;
-    height: 200px;
+    height: 300px;
     padding: 60px;
     background-color: darkblue;
+}
+
+#logoJS {
+    width: 100px;
 }
 
 h1 {
